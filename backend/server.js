@@ -7,7 +7,7 @@ import productRoutes from './routes/product.route.js';
 dotenv.config();
 
 const app = express();
-const PORT = 5500;
+const PORT = process.env.PORT || 5500;
 
 // middleware to parse json
 app.use(express.json()); //  for parsing application/json, allows to accept JSON
