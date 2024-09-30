@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { Container, VStack, Text, Link, SimpleGrid } from '@chakra-ui/react';
 import { Link as ReactRouterLink } from 'react-router-dom'
 import { useProductStore } from '../store/products';
+import ProductCard from "../components/ProductCard";
+
 
 const HomePage = () => {
   const { fetchProducts, products } = useProductStore();
@@ -32,17 +34,22 @@ const HomePage = () => {
           spacing={10}
           w={"full"}
         >
-
+          {products.map((product) => (
+						<ProductCard key={product._id} product={product} />
+					))}
         </SimpleGrid>
 
-        <Text fontSize={"xl"} textAlign={"center"} fontWeight={"bold"} color={"gray.500"}>
-          No Products Found - {" "}
-          <Link as={ReactRouterLink} to={"/create"}>
-            <Text as='span' color="blue.500" _hover={{ textDecoration: "underline" }}>
-              Create a Product
-            </Text>
-          </Link>
-        </Text>
+        {products.length === 0 && (
+          <Text fontSize={"xl"} textAlign={"center"} fontWeight={"bold"} color={"gray.500"}>
+            No Products Found - {" "}
+            <Link as={ReactRouterLink} to={"/create"}>
+              <Text as='span' color="blue.500" _hover={{ textDecoration: "underline" }}>
+                Create a Product
+              </Text>
+            </Link>
+          </Text>
+        )}
+
       </VStack>
     </Container>
   )
